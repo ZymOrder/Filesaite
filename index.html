@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FILEcraft | Облачный Файловый Менеджер</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 300;
+        }
+        .container {
+            display: flex;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 250px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-right: 20px;
+        }
+        .main-content {
+            flex-grow: 1;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .action-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            text-align: left;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        .action-button:hover {
+            background-color: #2980b9;
+        }
+        .action-button span {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        .file-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        .file-list li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .file-list li:hover {
+            background-color: #f8f8f8;
+        }
+        .file-icon {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        .file-name {
+            flex-grow: 1;
+        }
+        .file-size {
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>FILEcraft <span style="font-size: 14px; opacity: 0.7;">Облачный Менеджер</span></h1>
+    <div>
+        <span style="font-size: 14px;">Пользователь: DemoUser</span>
+    </div>
+</div>
+
+<div class="container">
+    
+    <div class="sidebar">
+        <h3>Действия</h3>
+        <button class="action-button" onclick="createFile('txt')"><span>📄</span> Создать Текстовый Файл</button>
+        <button class="action-button" onclick="createFile('html')"><span>🌐</span> Создать HTML Файл</button>
+        <button class="action-button" onclick="createFile('js')"><span>📜</span> Создать JS Файл</button>
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 15px 0;">
+        <h3>Облако (Навигация)</h3>
+        <ul class="file-list">
+            <li><span class="file-icon">🏠</span> Мой Диск</li>
+            <li><span class="file-icon">📦</span> Документы</li>
+            <li><span class="file-icon">🖼️</span> Изображения</li>
+            <li><span class="file-icon">🗑️</span> Корзина</li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <h2>Мой Диск / (Имитация облачных файлов)</h2>
+        <ul id="cloud-files" class="file-list">
+            </ul>
+    </div>
+
+  </div>
+  <script>
+    // --- ИМИТАЦИЯ ФАЙЛОВОЙ СИСТЕМЫ И МЕНЕДЖЕРА ---
+    
+    const mockFiles = [
+        { name: "README.txt", size: "2.1 KB", icon: "📄" },
+        { name: "Website_v1.html", size: "15.7 KB", icon: "🌐" },
+        { name: "style.css", size: "5.3 KB", icon: "🎨" },
+        { name: "script.js", size: "12.8 KB", icon: "📜" },
+        { name: "Project_Plan.docx", size: "88.9 KB", icon: "📦" }
+    ];
+
+    const fileListElement = document.getElementById('cloud-files');
+
+    // Функция для отображения "облачных" файлов
+    function renderFiles() {
+        fileListElement.innerHTML = ''; // Очистка
+        mockFiles.forEach(file => {
+            const li = document.createElement('li');
+            li.innerHTML = 
+                <span class="file-icon">${file.icon}</span>
+                <span class="file-name">${file.name}</span>
+                <span class="file-size">${file.size}</span>
+            ;
+            fileListElement.appendChild(li);
+        });
+    }
+
+    // Функция для "создания" файла (скачивание в браузере)
+    function createFile(type) {
+        let content = '';
+        let fileName = '';
+        let mimeType = '';
+
+        switch (type) {
+            case 'txt':
+                content = // Новый текстовый файл.
+// В реальном приложении этот контент был бы сохранен на сервере.
+// Дата создания: ${new Date().toLocaleDateString()};
+                fileName = новый_файл_${Date.now()}.txt;
+                mimeType = 'text/plain';
+                break;
+            case 'html':
+                content = <!DOCTYPE html>\n<html>\n<head><title>Новый Документ</title></head>\n<body><h1>Привет от FILEcraft!</h1></body>\n</html>;
+                fileName = новый_документ_${Date.now()}.html;
+                mimeType = 'text/html';
+                break;
+            case 'js':
+                content = // Новый JavaScript файл\nconsole.log("Файл успешно создан!");;
+                fileName = новый_скрипт_${Date.now()}.js;
+                mimeType = 'text/javascript';
+                break;
+            default:
+                return;
+        }
+
+        // Создание Blob и ссылки для скачивания
+        const blob = new Blob([content], { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        
+        // Автоматический клик для скачивания
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        alert(Файл "${fileName}" создан и скачан. Для облачного хранения требуется бэкенд.);
+    }
+
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', renderFiles);
+
+</script>
+
+</body>
+</html>
